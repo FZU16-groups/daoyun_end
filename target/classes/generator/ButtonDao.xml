@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ButtonDao">
+  <resultMap id="BaseResultMap" type="com.pojo.Button">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="ButtonName" jdbcType="CHAR" property="buttonname" />
+    <result column="ButtonIcon" jdbcType="CHAR" property="buttonicon" />
+    <result column="ButtonDetail" jdbcType="VARCHAR" property="buttondetail" />
+    <result column="Creator" jdbcType="INTEGER" property="creator" />
+    <result column="CreationDate" jdbcType="TIMESTAMP" property="creationdate" />
+    <result column="Modifier" jdbcType="INTEGER" property="modifier" />
+    <result column="ModificationDate" jdbcType="TIMESTAMP" property="modificationdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, ButtonName, ButtonIcon, ButtonDetail, Creator, CreationDate, Modifier, ModificationDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from button
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from button
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Button" useGeneratedKeys="true">
+    insert into button (ButtonName, ButtonIcon, ButtonDetail, 
+      Creator, CreationDate, Modifier, 
+      ModificationDate)
+    values (#{buttonname,jdbcType=CHAR}, #{buttonicon,jdbcType=CHAR}, #{buttondetail,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{creationdate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, 
+      #{modificationdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Button" useGeneratedKeys="true">
+    insert into button
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buttonname != null">
+        ButtonName,
+      </if>
+      <if test="buttonicon != null">
+        ButtonIcon,
+      </if>
+      <if test="buttondetail != null">
+        ButtonDetail,
+      </if>
+      <if test="creator != null">
+        Creator,
+      </if>
+      <if test="creationdate != null">
+        CreationDate,
+      </if>
+      <if test="modifier != null">
+        Modifier,
+      </if>
+      <if test="modificationdate != null">
+        ModificationDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buttonname != null">
+        #{buttonname,jdbcType=CHAR},
+      </if>
+      <if test="buttonicon != null">
+        #{buttonicon,jdbcType=CHAR},
+      </if>
+      <if test="buttondetail != null">
+        #{buttondetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modificationdate != null">
+        #{modificationdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Button">
+    update button
+    <set>
+      <if test="buttonname != null">
+        ButtonName = #{buttonname,jdbcType=CHAR},
+      </if>
+      <if test="buttonicon != null">
+        ButtonIcon = #{buttonicon,jdbcType=CHAR},
+      </if>
+      <if test="buttondetail != null">
+        ButtonDetail = #{buttondetail,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        Creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null">
+        CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        Modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modificationdate != null">
+        ModificationDate = #{modificationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Button">
+    update button
+    set ButtonName = #{buttonname,jdbcType=CHAR},
+      ButtonIcon = #{buttonicon,jdbcType=CHAR},
+      ButtonDetail = #{buttondetail,jdbcType=VARCHAR},
+      Creator = #{creator,jdbcType=INTEGER},
+      CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      Modifier = #{modifier,jdbcType=INTEGER},
+      ModificationDate = #{modificationdate,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

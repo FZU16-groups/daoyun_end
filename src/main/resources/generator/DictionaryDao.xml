@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DictionaryDao">
+  <resultMap id="BaseResultMap" type="com.pojo.Dictionary">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="ChineseName" jdbcType="VARCHAR" property="chinesename" />
+    <result column="EnglishName" jdbcType="VARCHAR" property="englishname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, ChineseName, EnglishName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dictionary
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Dictionary" useGeneratedKeys="true">
+    insert into dictionary (ChineseName, EnglishName)
+    values (#{chinesename,jdbcType=VARCHAR}, #{englishname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Dictionary" useGeneratedKeys="true">
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chinesename != null">
+        ChineseName,
+      </if>
+      <if test="englishname != null">
+        EnglishName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chinesename != null">
+        #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="englishname != null">
+        #{englishname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Dictionary">
+    update dictionary
+    <set>
+      <if test="chinesename != null">
+        ChineseName = #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="englishname != null">
+        EnglishName = #{englishname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Dictionary">
+    update dictionary
+    set ChineseName = #{chinesename,jdbcType=VARCHAR},
+      EnglishName = #{englishname,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

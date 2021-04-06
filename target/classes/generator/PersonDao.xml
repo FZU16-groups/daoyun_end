@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PersonDao">
+  <resultMap id="BaseResultMap" type="com.pojo.Person">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="SchoolId" jdbcType="INTEGER" property="schoolid" />
+    <result column="PersonNumber" jdbcType="VARCHAR" property="personnumber" />
+    <result column="PersonName" jdbcType="VARCHAR" property="personname" />
+    <result column="Gender" jdbcType="INTEGER" property="gender" />
+    <result column="Grade" jdbcType="VARCHAR" property="grade" />
+    <result column="Major" jdbcType="VARCHAR" property="major" />
+    <result column="Classes" jdbcType="INTEGER" property="classes" />
+    <result column="IsTeacher" jdbcType="INTEGER" property="isteacher" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserId, SchoolId, PersonNumber, PersonName, Gender, Grade, Major, Classes, IsTeacher
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.Integer"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from person
+    where UserId = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete from person
+    where
+      UserId = #{uId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Person" useGeneratedKeys="true">
+    insert into person (UserId, SchoolId, PersonNumber, 
+      PersonName, Gender, Grade, 
+      Major, Classes, IsTeacher
+      )
+    values (#{userid,jdbcType=INTEGER}, #{schoolid,jdbcType=INTEGER}, #{personnumber,jdbcType=VARCHAR}, 
+      #{personname,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, 
+      #{major,jdbcType=VARCHAR}, #{classes,jdbcType=INTEGER}, #{isteacher,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Person" useGeneratedKeys="true">
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="schoolid != null">
+        SchoolId,
+      </if>
+      <if test="personnumber != null">
+        PersonNumber,
+      </if>
+      <if test="personname != null">
+        PersonName,
+      </if>
+      <if test="gender != null">
+        Gender,
+      </if>
+      <if test="grade != null">
+        Grade,
+      </if>
+      <if test="major != null">
+        Major,
+      </if>
+      <if test="classes != null">
+        Classes,
+      </if>
+      <if test="isteacher != null">
+        IsTeacher,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null">
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="personnumber != null">
+        #{personnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null">
+        #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=INTEGER},
+      </if>
+      <if test="isteacher != null">
+        #{isteacher,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Person">
+    update person
+    <set>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="schoolid != null">
+        SchoolId = #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="personnumber != null">
+        PersonNumber = #{personnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="personname != null">
+        PersonName = #{personname,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        Gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        Grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        Major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        Classes = #{classes,jdbcType=INTEGER},
+      </if>
+      <if test="isteacher != null">
+        IsTeacher = #{isteacher,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Person">
+    update person
+    set UserId = #{userid,jdbcType=INTEGER},
+      SchoolId = #{schoolid,jdbcType=INTEGER},
+      PersonNumber = #{personnumber,jdbcType=VARCHAR},
+      PersonName = #{personname,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=INTEGER},
+      Grade = #{grade,jdbcType=VARCHAR},
+      Major = #{major,jdbcType=VARCHAR},
+      Classes = #{classes,jdbcType=INTEGER},
+      IsTeacher = #{isteacher,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultType="com.pojo.Person">
+    SELECT * FROM person ORDER BY
+      Id DESC
+  </select>
+</mapper>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CourseDao">
+  <resultMap id="BaseResultMap" type="com.pojo.Course">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="CourseNumber" jdbcType="VARCHAR" property="coursenumber" />
+    <result column="CourseName" jdbcType="VARCHAR" property="coursename" />
+    <result column="CourseDeatil" jdbcType="VARCHAR" property="coursedeatil" />
+    <result column="CourseTerm" jdbcType="VARCHAR" property="courseterm" />
+    <result column="CourseDate" jdbcType="INTEGER" property="coursedate" />
+    <result column="CourseCredit" jdbcType="DOUBLE" property="coursecredit" />
+    <result column="DailyWeight" jdbcType="DOUBLE" property="dailyweight" />
+    <result column="FinalWeight" jdbcType="DOUBLE" property="finalweight" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, CourseNumber, CourseName, CourseDeatil, CourseTerm, CourseDate, CourseCredit, 
+    DailyWeight, FinalWeight
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Course" useGeneratedKeys="true">
+    insert into course (CourseNumber, CourseName, CourseDeatil, 
+      CourseTerm, CourseDate, CourseCredit, 
+      DailyWeight, FinalWeight)
+    values (#{coursenumber,jdbcType=VARCHAR}, #{coursename,jdbcType=VARCHAR}, #{coursedeatil,jdbcType=VARCHAR}, 
+      #{courseterm,jdbcType=VARCHAR}, #{coursedate,jdbcType=INTEGER}, #{coursecredit,jdbcType=DOUBLE}, 
+      #{dailyweight,jdbcType=DOUBLE}, #{finalweight,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.pojo.Course" useGeneratedKeys="true">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coursenumber != null">
+        CourseNumber,
+      </if>
+      <if test="coursename != null">
+        CourseName,
+      </if>
+      <if test="coursedeatil != null">
+        CourseDeatil,
+      </if>
+      <if test="courseterm != null">
+        CourseTerm,
+      </if>
+      <if test="coursedate != null">
+        CourseDate,
+      </if>
+      <if test="coursecredit != null">
+        CourseCredit,
+      </if>
+      <if test="dailyweight != null">
+        DailyWeight,
+      </if>
+      <if test="finalweight != null">
+        FinalWeight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coursenumber != null">
+        #{coursenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coursename != null">
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedeatil != null">
+        #{coursedeatil,jdbcType=VARCHAR},
+      </if>
+      <if test="courseterm != null">
+        #{courseterm,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedate != null">
+        #{coursedate,jdbcType=INTEGER},
+      </if>
+      <if test="coursecredit != null">
+        #{coursecredit,jdbcType=DOUBLE},
+      </if>
+      <if test="dailyweight != null">
+        #{dailyweight,jdbcType=DOUBLE},
+      </if>
+      <if test="finalweight != null">
+        #{finalweight,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Course">
+    update course
+    <set>
+      <if test="coursenumber != null">
+        CourseNumber = #{coursenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coursename != null">
+        CourseName = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedeatil != null">
+        CourseDeatil = #{coursedeatil,jdbcType=VARCHAR},
+      </if>
+      <if test="courseterm != null">
+        CourseTerm = #{courseterm,jdbcType=VARCHAR},
+      </if>
+      <if test="coursedate != null">
+        CourseDate = #{coursedate,jdbcType=INTEGER},
+      </if>
+      <if test="coursecredit != null">
+        CourseCredit = #{coursecredit,jdbcType=DOUBLE},
+      </if>
+      <if test="dailyweight != null">
+        DailyWeight = #{dailyweight,jdbcType=DOUBLE},
+      </if>
+      <if test="finalweight != null">
+        FinalWeight = #{finalweight,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Course">
+    update course
+    set CourseNumber = #{coursenumber,jdbcType=VARCHAR},
+      CourseName = #{coursename,jdbcType=VARCHAR},
+      CourseDeatil = #{coursedeatil,jdbcType=VARCHAR},
+      CourseTerm = #{courseterm,jdbcType=VARCHAR},
+      CourseDate = #{coursedate,jdbcType=INTEGER},
+      CourseCredit = #{coursecredit,jdbcType=DOUBLE},
+      DailyWeight = #{dailyweight,jdbcType=DOUBLE},
+      FinalWeight = #{finalweight,jdbcType=DOUBLE}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
