@@ -1,4 +1,4 @@
-package com.utils;
+package com.pcs.utils;
 
 import java.security.MessageDigest;
 

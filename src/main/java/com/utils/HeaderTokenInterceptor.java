@@ -1,4 +1,4 @@
-package com.utils;
+package com.pcs.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
-import com.utils.ResponseData;
+import com.pcs.utils.ResponseData;
 
 /**
  * token鉴定

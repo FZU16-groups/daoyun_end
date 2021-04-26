@@ -1,4 +1,4 @@
-package com.service.impl;
+package com.pcs.service.impl;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.UserVerificationDao;
-import com.pojo.UserVerification;
-import com.service.IUserVerificationService;
+import com.pcs.dao.UserVerificationMapper;
+import com.pcs.pojo.UserVerification;
+import com.pcs.service.IUserVerificationService;
 
 @Service("userVerificationService")
 public class UserVerificationServiceImpl implements IUserVerificationService {
 	@Resource
-	private UserVerificationDao userVerificationDao;
+	private UserVerificationMapper userVerificationDao;
 
 	@Override
 	public int deleteByPrimaryKey(Integer uvId) {
@@ -63,21 +63,27 @@ public class UserVerificationServiceImpl implements IUserVerificationService {
 	}
 
 	@Override
+	public UserVerification loginByMessage(String loginToken) {
+		// TODO Auto-generated method stub
+		return this.userVerificationDao.loginByMessage(loginToken);
+	}
+
+	@Override
 	public List<UserVerification> findAll() {
 		// TODO Auto-generated method stub
 		return this.userVerificationDao.findAll();
 	}
 
 	@Override
-	public int updateByUserId(UserVerification record) {
+	public int updateByuId(UserVerification record) {
 		// TODO Auto-generated method stub
-		return this.userVerificationDao.updateByUserId(record);
+		return this.userVerificationDao.updateByuId(record);
 	}
 
 	@Override
-	public Integer deleteByUserId(Integer uId) {
+	public Integer deleteByuId(Integer uId) {
 		// TODO Auto-generated method stub
-		return this.userVerificationDao.deleteByUserId(uId);
+		return this.userVerificationDao.deleteByuId(uId);
 	}
 
 	@Override
@@ -85,5 +91,6 @@ public class UserVerificationServiceImpl implements IUserVerificationService {
 		// TODO Auto-generated method stub
 		return this.userVerificationDao.updatePassword(userVerification);
 	}
+
 
 }

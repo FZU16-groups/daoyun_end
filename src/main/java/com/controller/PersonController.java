@@ -1,4 +1,4 @@
-package com.controller;
+package com.pcs.controller;
 
 import java.util.List;
 
@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pojo.Person;
-import com.service.IPersonService;
+import com.pcs.pojo.Person;
+import com.pcs.service.IPersonService;
 
 @Controller
-@RequestMapping("/person")
 public class PersonController {
 	@Resource
 	private IPersonService personService;
@@ -25,9 +24,9 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value = "/selectByPrimaryKey.do", method = { RequestMethod.POST })
+	@RequestMapping(value = "/selectByPersonPrimaryKey.do", method = { RequestMethod.POST })
 	public @ResponseBody Person selectByPrimaryKey(@RequestBody Person person) {
-		return this.personService.selectByPrimaryKey(person.getId());
+		return this.personService.selectByPrimaryKey(person.getPeId());
 	}
 
 	/**
@@ -36,9 +35,9 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value = "/deleteByPrimaryKey.do", method = { RequestMethod.POST })
+	@RequestMapping(value = "/deleteByPersonPrimaryKey.do", method = { RequestMethod.POST })
 	public @ResponseBody Integer deleteByPrimaryKey(@RequestBody Person person) {
-		return this.personService.deleteByPrimaryKey(person.getId());
+		return this.personService.deleteByPrimaryKey(person.getPeId());
 	}
 
 	/**
@@ -47,11 +46,11 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value = "/updateByPrimaryKey.do", method = { RequestMethod.POST })
+	@RequestMapping(value = "/updateByPersonPrimaryKey.do", method = { RequestMethod.POST })
 	public @ResponseBody Person updateByPrimaryKeySelective(@RequestBody Person person) {
 		Integer res = this.personService.updateByPrimaryKeySelective(person);
 		if (res > 0) {
-			return this.personService.selectByPrimaryKey(person.getId());
+			return this.personService.selectByPrimaryKey(person.getPeId());
 		} else {
 			return null;
 		}
@@ -63,11 +62,11 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value = "/insert.do", method = { RequestMethod.POST })
+	@RequestMapping(value = "/insertPerson.do", method = { RequestMethod.POST })
 	public @ResponseBody Person insertSelective(@RequestBody Person person) {
 		Integer res = this.personService.insertSelective(person);
 		if (res == 1) {
-			Person person1 = this.personService.selectByuId(person.getUserid());
+			Person person1 = this.personService.selectByuId(person.getuId());
 			return person1;
 		} else {
 			return null;
@@ -78,7 +77,7 @@ public class PersonController {
 	/**
 	 * 查找全部师生信息
 	 */
-	@RequestMapping("/findAll.do")
+	@RequestMapping("/findAllPersons.do")
 	public @ResponseBody List<Person> findAll() {
 		return this.personService.findAll();
 	}

@@ -1,4 +1,4 @@
-package com.service.impl;
+package com.pcs.service.impl;
 
 import java.util.List;
 
@@ -6,14 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.dao.PersonDao;
-import com.pojo.Person;
-import com.service.IPersonService;
+import com.pcs.dao.PersonMapper;
+import com.pcs.pojo.Person;
+import com.pcs.service.IPersonService;
 
 @Service("personService")
 public class PersonServiceImpl implements IPersonService {
 	@Resource
-	private PersonDao personDao;
+	private PersonMapper personDao;
 
 	@Override
 	public int deleteByPrimaryKey(Integer peId) {
@@ -65,13 +65,13 @@ public class PersonServiceImpl implements IPersonService {
 	@Override
 	public Person selectByuId(Integer uId) {
 		// TODO Auto-generated method stub
-		return this.personDao.selectByUserId(uId);
+		return this.personDao.selectByuId(uId);
 	}
 
 	@Override
 	public Integer deleteByuId(Integer uId) {
 		// TODO Auto-generated method stub
-		return this.personDao.deleteByUserId(uId);
+		return this.personDao.deleteByuId(uId);
 	}
 
 }

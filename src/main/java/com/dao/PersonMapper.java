@@ -1,19 +1,19 @@
-package com.pcs.service;
+package com.pcs.dao;
 
 import java.util.List;
 
 import com.pcs.pojo.Person;
 
-public interface IPersonService {
+public interface PersonMapper {
 	int deleteByPrimaryKey(Integer peId);
 
 	int insert(Person record);
 
 	int insertSelective(Person record);
 
-	Person selectByuId(Integer uId);
-
 	Person selectByPrimaryKey(Integer peId);
+
+	Person selectByuId(Integer uId);
 
 	int updateByPrimaryKeySelective(Person record);
 
@@ -22,5 +22,4 @@ public interface IPersonService {
 	List<Person> findAll();
 
 	Integer deleteByuId(Integer uId);
-
 }

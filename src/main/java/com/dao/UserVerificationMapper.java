@@ -1,10 +1,10 @@
-package com.pcs.service;
+package com.pcs.dao;
 
 import java.util.List;
 
 import com.pcs.pojo.UserVerification;
 
-public interface IUserVerificationService {
+public interface UserVerificationMapper {
 	int deleteByPrimaryKey(Integer uvId);
 
 	int insert(UserVerification record);
@@ -19,14 +19,16 @@ public interface IUserVerificationService {
 
 	int updateByPrimaryKey(UserVerification record);
 
+	List<UserVerification> findAll();
+
 	UserVerification login(UserVerification record);
 
 	UserVerification loginByMessage(String loginToken);
 
-	List<UserVerification> findAll();
-
 	Integer deleteByuId(Integer uId);
 
 	Integer updatePassword(UserVerification userVerification);
+
+
 
 }

@@ -1,11 +1,11 @@
-package com.pcs.service;
+package com.pcs.dao;
 
 import java.util.List;
 
 import com.pcs.dto.PageDTO;
 import com.pcs.pojo.User;
 
-public interface IUserService {
+public interface UserMapper {
 	int deleteByPrimaryKey(Integer uId);
 
 	int insert(User record);
@@ -25,5 +25,4 @@ public interface IUserService {
 	List<User> findAll(PageDTO pageDTO);
 
 	int countUser();
-
 }
