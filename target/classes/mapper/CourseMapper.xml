@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.CourseMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.CourseDTO">
+		<id column="c_id" jdbcType="INTEGER" property="cId" />
+		<result column="c_number" jdbcType="VARCHAR" property="cNumber" />
+		<result column="c_name" jdbcType="VARCHAR" property="cName" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="school" jdbcType="VARCHAR" property="school" />
+		<result column="college" jdbcType="VARCHAR" property="college" />
+		<result column="classname" jdbcType="VARCHAR" property="classname" />
+		<result column="term" jdbcType="VARCHAR" property="term" />
+		<result column="date" jdbcType="INTEGER" property="date" />
+		<result column="credit" jdbcType="DOUBLE" property="credit" />
+		<result column="daily_weight" jdbcType="DOUBLE" property="dailyWeight" />
+		<result column="final_weight" jdbcType="DOUBLE" property="finalWeight" />
+		<result column="pe_id" jdbcType="INTEGER" property="peId" />
+		<result column="pe_name" jdbcType="VARCHAR" property="peName" />
+		<result column="can_join" jdbcType="INTEGER" property="can_join" />
+		<result column="state" jdbcType="INTEGER" property="state" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		c_id, c_number, c_name, description, school, college,classname,
+		term, date, credit, daily_weight, final_weight, can_join, state
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from course
+		where c_id = #{cId,jdbcType=INTEGER}
+	</select>
+	<select id="selectBycNumber" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from course
+		where c_number = #{cNumber,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from course
+		where c_id = #{cId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.CourseDTO">
+		insert into course (c_id,
+		c_number, c_name,
+		description, school, college, classname, term, date,
+		credit, daily_weight,final_weight,
+		can_join, state
+		)
+		values (#{cId,jdbcType=INTEGER},
+				#{cNumber,jdbcType=VARCHAR},
+				#{cName,jdbcType=VARCHAR},
+				#{description,jdbcType=VARCHAR},
+				#{school,jdbcType=VARCHAR},
+				#{college,jdbcType=VARCHAR},
+				#{classname,jdbcType=VARCHAR},
+				#{term,jdbcType=VARCHAR},
+				#{date,jdbcType=INTEGER},
+				#{credit,jdbcType=DOUBLE},
+				#{dailyWeight,jdbcType=DOUBLE},
+				#{finalWeight,jdbcType=DOUBLE},
+				#{can_join,jdbcType=INTEGER},
+				#{state,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.CourseDTO">
+		insert into course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cId != null">
+				c_id,
+			</if>
+			<if test="cNumber != null">
+				c_number,
+			</if>
+			<if test="cName != null">
+				c_name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="school != null">
+				school,
+			</if>
+			<if test="college != null">
+				college,
+			</if>
+			<if test="classname != null">
+				classname,
+			</if>
+			<if test="term != null">
+				term,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="credit != null">
+				credit,
+			</if>
+			<if test="dailyWeight != null">
+				daily_weight,
+			</if>
+			<if test="finalWeight != null">
+				final_weight,
+			</if>
+			<if test="can_join != null">
+				can_join,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cId != null">
+				#{cId,jdbcType=INTEGER},
+			</if>
+			<if test="cNumber != null">
+				#{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				#{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null">
+				#{school,jdbcType=VARCHAR},
+			</if>
+			<if test="college != null">
+				#{college,jdbcType=VARCHAR},
+			</if>
+			<if test="classname != null">
+				#{classname,jdbcType=VARCHAR},
+			</if>
+			<if test="term != null">
+				#{term,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=INTEGER},
+			</if>
+			<if test="credit != null">
+				#{credit,jdbcType=DOUBLE},
+			</if>
+			<if test="dailyWeight != null">
+				#{dailyWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="finalWeight != null">
+				#{finalWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="can_join != null">
+				#{can_join,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.CourseDTO">
+		update course
+		<set>
+			<if test="cNumber != null">
+				c_number = #{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				c_name = #{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null">
+				school = #{school,jdbcType=VARCHAR},
+			</if>
+			<if test="college != null">
+				college = #{college,jdbcType=VARCHAR},
+			</if>
+			<if test="classname != null">
+				classname = #{classname,jdbcType=VARCHAR},
+			</if>
+			<if test="term != null">
+				term = #{term,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=INTEGER},
+			</if>
+			<if test="credit != null">
+				credit = #{credit,jdbcType=DOUBLE},
+			</if>
+			<if test="dailyWeight != null">
+				daily_weight = #{dailyWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="finalWeight != null">
+				final_weight = #{finalWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="can_join != null">
+				can_join = #{can_join,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+		</set>
+		where c_id = #{cId,jdbcType=INTEGER}
+	</update>
+	<update id="updateBycNumberSelective" parameterType="com.pcs.pojo.CourseDTO">
+		update course
+		<set>
+			<if test="cName != null">
+				c_name = #{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null">
+				school = #{school,jdbcType=VARCHAR},
+			</if>
+			<if test="college != null">
+				college = #{college,jdbcType=VARCHAR},
+			</if>
+			<if test="classname != null">
+				classname = #{classname,jdbcType=VARCHAR},
+			</if>
+			<if test="term != null">
+				term = #{term,jdbcType=VARCHAR},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=INTEGER},
+			</if>
+			<if test="credit != null">
+				credit = #{credit,jdbcType=DOUBLE},
+			</if>
+			<if test="dailyWeight != null">
+				daily_weight = #{dailyWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="finalWeight != null">
+				final_weight = #{finalWeight,jdbcType=DOUBLE},
+			</if>
+			<if test="can_join != null">
+				can_join = #{can_join,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+		</set>
+		where c_number = #{cNumber,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.CourseDTO">
+		update course
+		set
+		c_number = #{cNumber,jdbcType=VARCHAR},
+		c_name =#{cName,jdbcType=VARCHAR},
+		description =#{description,jdbcType=VARCHAR},
+		school = #{school,jdbcType=VARCHAR},
+		college = #{college,jdbcType=VARCHAR},
+		classname = #{classname,jdbcType=VARCHAR},
+		term = #{term,jdbcType=VARCHAR},
+		date = #{date,jdbcType=INTEGER},
+		credit = #{credit,jdbcType=DOUBLE},
+		daily_weight = #{dailyWeight,jdbcType=DOUBLE},
+		final_weight = #{finalWeight,jdbcType=DOUBLE},
+		can_join = #{can_join,jdbcType=INTEGER},
+		state = #{state,jdbcType=INTEGER}
+		where c_id = #{cId,jdbcType=INTEGER}
+	</update>
+	<select id="findAll" parameterType="com.pcs.dto.PageDTO" resultType="com.pcs.pojo.CourseDTO">
+		SELECT c.*,p.pe_id,p.pe_name
+		FROM person_course pc left outer join course c on pc.c_id = c.c_id
+		left outer join person p on pc.pe_id = p.pe_id
+		where pc.status = 1
+		limit #{pageIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="countCourse" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM person_course pc left outer join course c on pc.c_id = c.c_id
+		left outer join person p on pc.pe_id = p.pe_id
+		where pc.status = 1
+	</select>
+
+	<select id="findAllByPeId" parameterType="com.pcs.dto.PagePeIdDTO" resultType="com.pcs.pojo.CourseDTO">
+		SELECT c.*,p.pe_id,p.pe_name
+		FROM person_course pc left outer join course c on pc.c_id = c.c_id
+							  left outer join person p on pc.pe_id = p.pe_id
+		where p.pe_id = #{peId,jdbcType=INTEGER}
+			limit #{pageIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="countCourseByPeId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM person_course pc left outer join course c on pc.c_id = c.c_id
+							  left outer join person p on pc.pe_id = p.pe_id
+		where p.pe_id = #{peId,jdbcType=INTEGER}
+	</select>
+</mapper>

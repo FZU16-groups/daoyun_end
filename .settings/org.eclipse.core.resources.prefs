@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/pcs/service/IButtonService.java=UTF-8
+encoding//src/main/java/com/pcs/service/ICourseService.java=UTF-8
+encoding//src/main/java/com/pcs/service/IPersonCourseService.java=UTF-8
+encoding//src/main/java/com/pcs/service/IPersonService.java=UTF-8
+encoding//src/main/java/com/pcs/service/ISignInService.java=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/login.jsp=UTF-8
+encoding//src/test/java/com/pcs/test/TestUser.java=UTF-8
+encoding/<project>=UTF-8

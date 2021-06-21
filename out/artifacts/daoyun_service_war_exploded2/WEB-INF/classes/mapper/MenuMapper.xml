@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.pcs.pojo.Menu">
+    <id column="m_id" jdbcType="INTEGER" property="mId" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="is_display" jdbcType="BIT" property="isDisplay" />
+    <result column="is_page" jdbcType="BIT" property="isPage" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modifier" jdbcType="INTEGER" property="lastModifier" />
+    <result column="last_modify_date" jdbcType="TIMESTAMP" property="lastModifyDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    m_id, parent_id, menu_name, icon, link, sort, is_display, is_page, creator, create_time, 
+    last_modifier, last_modify_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcs.pojo.Menu">
+    insert into menu (m_id, parent_id, menu_name, 
+      icon, link, sort, is_display, 
+      is_page, creator, create_time, 
+      last_modifier, last_modify_date)
+    values (#{mId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{isDisplay,jdbcType=BIT}, 
+      #{isPage,jdbcType=BIT}, #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastModifier,jdbcType=INTEGER}, #{lastModifyDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcs.pojo.Menu">
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        m_id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="link != null">
+        link,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isDisplay != null">
+        is_display,
+      </if>
+      <if test="isPage != null">
+        is_page,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModifier != null">
+        last_modifier,
+      </if>
+      <if test="lastModifyDate != null">
+        last_modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDisplay != null">
+        #{isDisplay,jdbcType=BIT},
+      </if>
+      <if test="isPage != null">
+        #{isPage,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifier != null">
+        #{lastModifier,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyDate != null">
+        #{lastModifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.Menu">
+    update menu
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDisplay != null">
+        is_display = #{isDisplay,jdbcType=BIT},
+      </if>
+      <if test="isPage != null">
+        is_page = #{isPage,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifier != null">
+        last_modifier = #{lastModifier,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyDate != null">
+        last_modify_date = #{lastModifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcs.pojo.Menu">
+    update menu
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      is_display = #{isDisplay,jdbcType=BIT},
+      is_page = #{isPage,jdbcType=BIT},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modifier = #{lastModifier,jdbcType=INTEGER},
+      last_modify_date = #{lastModifyDate,jdbcType=TIMESTAMP}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+ 
+   <select id="findAll" resultType="com.pcs.pojo.Menu">
+        SELECT * FROM menu ORDER BY m_id DESC
+   </select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.DictionaryDetailMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.DictionaryDetail">
+		<id column="dd_id" jdbcType="INTEGER" property="ddId" />
+		<result column="d_id" jdbcType="INTEGER" property="dId" />
+		<result column="dd_name" jdbcType="VARCHAR" property="ddName" />
+		<result column="is_default" jdbcType="INTEGER" property="isDefault" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		dd_id, d_id, dd_name, is_default
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from dictionary_detail
+		where dd_id = #{ddId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		dictionary_detail
+		where dd_id = #{ddId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.DictionaryDetail">
+		insert into dictionary_detail
+		(dd_id, d_id, dd_name,
+		is_default)
+		values (#{ddId,jdbcType=INTEGER},
+		#{dId,jdbcType=INTEGER},
+		#{ddName,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.DictionaryDetail">
+		insert into dictionary_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ddId != null">
+				dd_id,
+			</if>
+			<if test="dId != null">
+				d_id,
+			</if>
+			<if test="ddName != null">
+				dd_name,
+			</if>
+			<if test="isDefault != null">
+				is_default,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ddId != null">
+				#{ddId,jdbcType=INTEGER},
+			</if>
+			<if test="dId != null">
+				#{dId,jdbcType=INTEGER},
+			</if>
+			<if test="ddName != null">
+				#{ddName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.DictionaryDetail">
+		update dictionary_detail
+		<set>
+			<if test="dId != null">
+				d_id = #{dId,jdbcType=INTEGER},
+			</if>
+			<if test="ddName != null">
+				dd_name = #{ddName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault,jdbcType=INTEGER},
+			</if>
+		</set>
+		where dd_id = #{ddId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.DictionaryDetail">
+		update
+		dictionary_detail
+		set d_id = #{dId,jdbcType=INTEGER},
+		dd_name =
+		#{ddName,jdbcType=VARCHAR},
+		is_default = #{isDefault,jdbcType=INTEGER}
+		where dd_id = #{ddId,jdbcType=INTEGER}
+	</update>
+	<select id="findAll" resultType="com.pcs.pojo.DictionaryDetail">
+		SELECT * FROM dictionary_detail
+		ORDER BY dd_id DESC
+	</select>
+	<select id="selectBydId" resultType="com.pcs.pojo.DictionaryDetail">
+		SELECT * FROM
+		dictionary_detail
+		where d_id = #{dId,jdbcType=INTEGER}
+	</select>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.MenuButtonMapper">
+  <resultMap id="BaseResultMap" type="com.pcs.pojo.MenuButton">
+    <id column="mb_id" jdbcType="INTEGER" property="mbId" />
+    <result column="m_id" jdbcType="INTEGER" property="mId" />
+    <result column="b_id" jdbcType="INTEGER" property="bId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mb_id, m_id, b_id, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu_button
+    where mb_id = #{mbId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu_button
+    where mb_id = #{mbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcs.pojo.MenuButton">
+    insert into menu_button (mb_id, m_id, b_id, 
+      status)
+    values (#{mbId,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{bId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcs.pojo.MenuButton">
+    insert into menu_button
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mbId != null">
+        mb_id,
+      </if>
+      <if test="mId != null">
+        m_id,
+      </if>
+      <if test="bId != null">
+        b_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mbId != null">
+        #{mbId,jdbcType=INTEGER},
+      </if>
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null">
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.MenuButton">
+    update menu_button
+    <set>
+      <if test="mId != null">
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="bId != null">
+        b_id = #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mb_id = #{mbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcs.pojo.MenuButton">
+    update menu_button
+    set m_id = #{mId,jdbcType=INTEGER},
+      b_id = #{bId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where mb_id = #{mbId,jdbcType=INTEGER}
+  </update>
+   <select id="findAll" resultType="com.pcs.pojo.MenuButton">
+        SELECT * FROM menu_button ORDER BY mb_id DESC
+   </select>
+</mapper>

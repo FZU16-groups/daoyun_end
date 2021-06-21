@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.Role">
+		<id column="r_id" jdbcType="INTEGER" property="rId" />
+		<result column="r_name" jdbcType="VARCHAR" property="rName" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="creator" jdbcType="INTEGER" property="creator" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="last_modifier" jdbcType="INTEGER" property="lastModifier" />
+		<result column="last_modify_date" jdbcType="TIMESTAMP"
+			property="lastModifyDate" />
+		<result column="p_id" jdbcType="INTEGER" property="pId" />
+		<result column="p_name" jdbcType="VARCHAR" property="pName" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		r_id, r_name, description, creator, create_time,
+		last_modifier,
+		last_modify_date
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from role
+		where r_id = #{rId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from role
+		where r_id = #{rId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.Role">
+		insert into role (r_id,
+		r_name, description,
+		creator, create_time, last_modifier,
+		last_modify_date)
+		values (#{rId,jdbcType=INTEGER},
+		#{rName,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+		#{lastModifier,jdbcType=INTEGER},
+		#{lastModifyDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.Role">
+		insert into role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rId != null">
+				r_id,
+			</if>
+			<if test="rName != null">
+				r_name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="lastModifier != null">
+				last_modifier,
+			</if>
+			<if test="lastModifyDate != null">
+				last_modify_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rId != null">
+				#{rId,jdbcType=INTEGER},
+			</if>
+			<if test="rName != null">
+				#{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastModifier != null">
+				#{lastModifier,jdbcType=INTEGER},
+			</if>
+			<if test="lastModifyDate != null">
+				#{lastModifyDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.Role">
+		update role
+		<set>
+			<if test="rName != null">
+				r_name = #{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastModifier != null">
+				last_modifier = #{lastModifier,jdbcType=INTEGER},
+			</if>
+			<if test="lastModifyDate != null">
+				last_modify_date = #{lastModifyDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where r_id = #{rId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.Role">
+		update role
+		set
+		r_name = #{rName,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
+		creator = #{creator,jdbcType=INTEGER},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		last_modifier =
+		#{lastModifier,jdbcType=INTEGER},
+		last_modify_date =
+		#{lastModifyDate,jdbcType=TIMESTAMP}
+		where r_id =
+		#{rId,jdbcType=INTEGER}
+	</update>
+
+	<select id="findAll" resultType="com.pcs.pojo.Role">
+		SELECT * FROM role ORDER BY r_id
+		DESC
+	</select>
+
+	<select id="selectRolePermission" resultType="com.pcs.pojo.Role">
+		SELECT
+		r.r_id,r_name,r.description,p.p_id,p_name,rp.status
+		FROM
+		role_permission rp left
+		outer
+		join role r on rp.r_id = r.r_id left
+		outer
+		join permission p on
+		rp.p_id
+		= p.p_id order by r_name DESC,rp.status
+		DESC
+	</select>
+</mapper>

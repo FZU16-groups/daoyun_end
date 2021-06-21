@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.SignInMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.SignIn">
+		<id column="si_id" jdbcType="INTEGER" property="siId" />
+		<result column="c_number" jdbcType="VARCHAR" property="cNumber" />
+		<result column="c_name" jdbcType="VARCHAR" property="cName" />
+		<result column="pe_number" jdbcType="VARCHAR" property="peNumber" />
+		<result column="pe_name" jdbcType="VARCHAR" property="peName" />
+		<result column="state" jdbcType="INTEGER" property="state" />
+		<result column="date" jdbcType="TIMESTAMP" property="date" />
+		<result column="position" jdbcType="VARCHAR" property="position" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		si_id, c_number, c_name, pe_number, pe_name, state, date, position
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where si_id = #{siId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sign_in
+		where si_id = #{siId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.SignIn">
+		insert into sign_in (si_id, c_number, c_name,
+		pe_number, pe_name, state,
+		date, position)
+		values (#{siId,jdbcType=INTEGER}, #{cNumber,jdbcType=VARCHAR},
+		#{cName,jdbcType=VARCHAR},
+		#{peNumber,jdbcType=VARCHAR}, #{peName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER},
+		#{date,jdbcType=TIMESTAMP}, #{position,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.SignIn">
+		insert into sign_in
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="siId != null">
+				si_id,
+			</if>
+			<if test="cNumber != null">
+				c_number,
+			</if>
+			<if test="cName != null">
+				c_name,
+			</if>
+			<if test="peNumber != null">
+				pe_number,
+			</if>
+			<if test="peName != null">
+				pe_name,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="siId != null">
+				#{siId,jdbcType=INTEGER},
+			</if>
+			<if test="cNumber != null">
+				#{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				#{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="peNumber != null">
+				#{peNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="peName != null">
+				#{peName,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.SignIn">
+		update sign_in
+		<set>
+			<if test="cNumber != null">
+				c_number = #{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				c_name = #{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="peNumber != null">
+				pe_number = #{peNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="peName != null">
+				pe_name = #{peName,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where si_id = #{siId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.SignIn">
+		update sign_in
+		set c_number = #{cNumber,jdbcType=VARCHAR},
+		c_name = #{cName,jdbcType=VARCHAR},
+		pe_number = #{peNumber,jdbcType=VARCHAR},
+		pe_name = #{peName,jdbcType=VARCHAR},
+		state = #{state,jdbcType=INTEGER},
+		date = #{date,jdbcType=TIMESTAMP},
+		position = #{position,jdbcType=VARCHAR}
+		where si_id = #{siId,jdbcType=INTEGER}
+	</update>
+
+	<select id="findAll" resultType="com.pcs.pojo.SignIn">
+		SELECT * FROM sign_in ORDER BY
+		si_id DESC
+	</select>
+</mapper>
