@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.PersonCourseMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.PersonCourse">
+		<id column="pc_id" jdbcType="INTEGER" property="pcId" />
+		<result column="pe_id" jdbcType="INTEGER" property="peId" />
+		<result column="c_id" jdbcType="INTEGER" property="cId" />
+		<result column="value" jdbcType="INTEGER" property="value" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+        <result column="attendance" jdbcType="INTEGER" property="attendance" />
+		<result column="c_name" jdbcType="VARCHAR" property="cName" />
+		<result column="c_number" jdbcType="VARCHAR" property="cNumber" />
+		<result column="term" jdbcType="VARCHAR" property="term" />
+		<result column="pe_number" jdbcType="VARCHAR" property="peNumber" />
+		<result column="pe_name" jdbcType="VARCHAR" property="peName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pc_id, pe_id, c_id, value, status, attendance
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from person_course
+		where pc_id = #{pcId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		person_course
+		where pc_id = #{pcId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteBycId" parameterType="java.lang.Integer">
+		delete from
+		person_course
+		where c_id = #{cId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.PersonCourse">
+		insert into person_course
+		(pc_id, pe_id, c_id,
+		value, status, attendance)
+		values (#{pcId,jdbcType=INTEGER},
+		#{peId,jdbcType=INTEGER},
+		#{cId,jdbcType=INTEGER},
+		#{value,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
+		       #{attendance,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.PersonCourse">
+		insert into person_course
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pcId != null">
+				pc_id,
+			</if>
+			<if test="peId != null">
+				pe_id,
+			</if>
+			<if test="cId != null">
+				c_id,
+			</if>
+			<if test="value != null">
+				value,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="attendance != null">
+				attendance,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pcId != null">
+				#{pcId,jdbcType=INTEGER},
+			</if>
+			<if test="peId != null">
+				#{peId,jdbcType=INTEGER},
+			</if>
+			<if test="cId != null">
+				#{cId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null">
+				#{value,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="attendance != null">
+				#{attendance,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.PersonCourse">
+		update person_course
+		<set>
+			<if test="peId != null">
+				pe_id = #{peId,jdbcType=INTEGER},
+			</if>
+			<if test="cId != null">
+				c_id = #{cId,jdbcType=INTEGER},
+			</if>
+			<if test="value != null">
+				value = #{value,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="attendance != null">
+				attendance = #{attendance,jdbcType=INTEGER},
+			</if>
+		</set>
+		where pc_id = #{pcId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.PersonCourse">
+		update
+		person_course
+		set pe_id = #{peId,jdbcType=INTEGER},
+		c_id =
+		#{cId,jdbcType=INTEGER},
+		value = #{value,jdbcType=INTEGER},
+		status =
+		#{status,jdbcType=INTEGER},
+		attendance =
+		#{attendance,jdbcType=INTEGER}
+		where pc_id = #{pcId,jdbcType=INTEGER}
+	</update>
+	<select id="findAll" resultMap="BaseResultMap">
+		SELECT * FROM person_course
+		ORDER BY pc_id DESC
+	</select>
+	<select id="createdCourse" parameterType="com.pcs.pojo.PersonCourse" resultMap="BaseResultMap">
+		SELECT
+		pc.*,c.c_name,c.c_number,c.term
+		FROM
+		person_course pc left outer join course c on
+		pc.c_id = c.c_id
+		where pc.pe_id = #{peId,jdbcType=INTEGER} and pc.status=1
+	</select>
+	<select id="addedCourse" parameterType="com.pcs.pojo.PersonCourse" resultMap="BaseResultMap">
+		SELECT pc.*,c.c_name,c.c_number,c.term
+		FROM
+		person_course pc left outer join course c on pc.c_id = c.c_id
+		where pc.pe_id = #{peId,jdbcType=INTEGER} and pc.status=0
+	</select>
+	<select id="selectPersonBycId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+		p.pe_number,p.pe_name,pc.value,pc.pc_id,p.pe_id,c.c_id,pc.attendance,c.c_number
+		FROM
+		person_course pc left outer join
+		course c on pc.c_id = c.c_id left outer join person p on pc.pe_id =
+		p.pe_id
+		where c.c_id = #{cId,jdbcType=INTEGER} and p.is_student = 1
+	</select>
+
+	<select id="judgeJoinCourse" resultType="com.pcs.pojo.PersonCourse">
+		select *
+		from person_course
+		where pe_id = #{peId,jdbcType=INTEGER} and c_id = #{cId,jdbcType=INTEGER}
+	</select>
+
+	<select id="findTeacher" resultType="com.pcs.pojo.PersonCourse">
+		select *
+		from person_course
+		where c_id = #{cId,jdbcType=INTEGER} and status=1
+	</select>
+
+	<select id="selectBycId" resultMap="BaseResultMap">
+		select *
+		from person_course
+		where c_id = #{cId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectBycIdAndpeId" resultMap="BaseResultMap">
+		select *
+		from person_course
+		where pe_id = #{peId,jdbcType=INTEGER} and c_id = #{cId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectStudentsBycId" resultMap="BaseResultMap">
+		select p.pe_number,p.pe_name,pc.value,pc.pc_id,p.pe_id,c.c_id,pc.attendance,c.c_number
+		from person_course pc left outer join
+			 course c on pc.c_id = c.c_id left outer join person p on pc.pe_id =
+																	  p.pe_id
+		where pc.c_id = #{cId,jdbcType=INTEGER} and pc.status=0
+	</select>
+
+</mapper>

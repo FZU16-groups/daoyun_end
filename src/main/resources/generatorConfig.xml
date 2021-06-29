@@ -12,7 +12,7 @@
 		</commentGenerator>
 		数据库连接的信息：驱动类、连接地址、用户名、密码
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/daoyun" userId="root"
+			connectionURL="jdbc:mysql://localhost:3306/pcs" userId="root"
 			password="123456">
 		</jdbcConnection>
 		默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 
@@ -22,8 +22,8 @@
 		</javaTypeResolver>
 		指定javaBean生成的位置 targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制； 
 			targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
-		<javaModelGenerator targetPackage="com.pojo"
-			targetProject="C:\Users\taomi\IdeaProjects\daoyun\src\main\java">
+		<javaModelGenerator targetPackage="com.pcs.pojo"
+			targetProject="D:/engineering-training/pcs/src/main/java">
 			在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false；如果多个数据库改为true分目录
 			<property name="enableSubPackages" value="false" />
 			设置是否在getter方法中，对String类型字段调用trim()方法
@@ -32,13 +32,13 @@
 
 		指定mapper映射文件生成的位置 targetPackage、targetProject同javaModelGenerator中作用一样
 		<sqlMapGenerator targetPackage="mapper"
-			targetProject="C:\Users\taomi\IdeaProjects\daoyun\src\main\resources">
+			targetProject="D:/engineering-training/pcs/src/main/resources">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 
 		指定mapper接口生成的位置 targetPackage、targetProject同javaModelGenerator中作用一样
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.dao" targetProject="C:\Users\taomi\IdeaProjects\daoyun\src\main\java">
+			targetPackage="com.pcs.dao" targetProject="D:/engineering-training/pcs/src/main/java">
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		指定数据库表 domainObjectName：生成的domain类的名字,当表名和domain类的名字有差异时一定要设置，如果不设置，直接使用表名作为domain类的名字； 
@@ -51,7 +51,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
-		<table tableName="dictionarydetail" domainObjectName="DictionaryDetail"
+		<table tableName="dictionary_detail" domainObjectName="DictionaryDetail"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
@@ -59,7 +59,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
-		<table tableName="menubutton" domainObjectName="MenuButton"
+		<table tableName="menu_button" domainObjectName="MenuButton"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
@@ -71,7 +71,7 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
-		<table tableName="rolepermission" domainObjectName="RolePermission"
+		<table tableName="role_permission" domainObjectName="RolePermission"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
@@ -79,11 +79,11 @@
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
-		<table tableName="userrole" domainObjectName="UserRole"
+		<table tableName="user_role" domainObjectName="UserRole"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
-		<table tableName="userverification" domainObjectName="UserVerification"
+		<table tableName="user_verification" domainObjectName="UserVerification"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
@@ -96,6 +96,18 @@
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>
 		<table tableName="course" domainObjectName="Course"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>
+		<table tableName="sign_in" domainObjectName="SignIn"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>
+		<table tableName="person_course" domainObjectName="PersonCourse"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>
+		<table tableName="parameter" domainObjectName="Parameter"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false"></table>

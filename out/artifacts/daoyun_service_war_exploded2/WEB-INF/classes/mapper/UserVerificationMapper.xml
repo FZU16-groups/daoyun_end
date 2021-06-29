@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.UserVerificationMapper">
+
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.UserVerification">
+		<id column="uv_id" jdbcType="INTEGER" property="uvId" />
+		<result column="u_id" jdbcType="INTEGER" property="uId" />
+		<result column="login_type" jdbcType="INTEGER" property="loginType" />
+		<result column="login_token" jdbcType="VARCHAR" property="loginToken" />
+		<result column="password_token" jdbcType="VARCHAR" property="passwordToken" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		uv_id, u_id, login_type, login_token, password_token,
+		status
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_verification
+		where uv_id = #{uvId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		user_verification
+		where uv_id = #{uvId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByuId" parameterType="java.lang.Integer">
+		delete from
+		user_verification
+		where u_id = #{uId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.UserVerification">
+		insert into user_verification
+		(uv_id, u_id, login_type,
+		login_token, password_token,
+		status)
+		values
+		(#{uvId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER},
+		#{loginType,jdbcType=INTEGER},
+		#{isThird,jdbcType=BIT},
+		#{loginToken,jdbcType=VARCHAR}, #{passwordToken,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.UserVerification">
+		insert into user_verification
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uvId != null">
+				uv_id,
+			</if>
+			<if test="uId != null">
+				u_id,
+			</if>
+			<if test="loginType != null">
+				login_type,
+			</if>
+
+			<if test="loginToken != null">
+				login_token,
+			</if>
+			<if test="passwordToken != null">
+				password_token,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uvId != null">
+				#{uvId,jdbcType=INTEGER},
+			</if>
+			<if test="uId != null">
+				#{uId,jdbcType=INTEGER},
+			</if>
+			<if test="loginType != null">
+				#{loginType,jdbcType=INTEGER},
+			</if>
+			<if test="loginToken != null">
+				#{loginToken,jdbcType=VARCHAR},
+			</if>
+			<if test="passwordToken != null">
+				#{passwordToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.UserVerification">
+		update user_verification
+		<set>
+			<if test="uId != null">
+				u_id = #{uId,jdbcType=INTEGER},
+			</if>
+			<if test="loginType != null">
+				login_type = #{loginType,jdbcType=INTEGER},
+			</if>
+			<if test="loginToken != null">
+				login_token = #{loginToken,jdbcType=VARCHAR},
+			</if>
+			<if test="passwordToken != null">
+				password_token = #{passwordToken,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+		</set>
+		where uv_id = #{uvId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByuId" parameterType="com.pcs.pojo.UserVerification">
+		update user_verification
+		set
+		login_type = #{loginType,jdbcType=INTEGER},
+		login_token
+		=#{loginToken,jdbcType=VARCHAR} 
+		where u_id =
+		#{uId,jdbcType=INTEGER}
+	</update>
+	<update id="updatePassword" parameterType="com.pcs.pojo.UserVerification">
+		update user_verification
+		<set>
+			<if test="passwordToken != null">
+				password_token = #{passwordToken,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where u_id = #{uId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.UserVerification">
+		update
+		user_verification
+		set u_id = #{uId,jdbcType=INTEGER},
+		login_type =
+		#{loginType,jdbcType=INTEGER},
+		login_token =
+		#{loginToken,jdbcType=VARCHAR},
+		password_token =
+		#{passwordToken,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER}
+		where uv_id = #{uvId,jdbcType=INTEGER}
+	</update>
+	<select id="findAll" resultType="com.pcs.pojo.UserVerification">
+		SELECT * FROM user_verification
+		ORDER BY uv_id DESC
+	</select>
+	<select id="login" parameterType="com.pcs.pojo.UserVerification"
+		resultType="com.pcs.pojo.UserVerification">
+		SELECT * FROM user_verification WHERE login_token =
+		#{loginToken,jdbcType=VARCHAR} AND password_token =
+		#{passwordToken,jdbcType=VARCHAR}
+	</select>
+</mapper>

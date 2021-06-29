@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.ParameterMapper">
+  <resultMap id="BaseResultMap" type="com.pcs.pojo.Parameter">
+    <id column="pa_id" jdbcType="INTEGER" property="paId" />
+    <result column="pa_name" jdbcType="VARCHAR" property="paName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="value" jdbcType="DOUBLE" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pa_id, pa_name, description, value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from parameter
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from parameter
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pcs.pojo.Parameter">
+    insert into parameter (pa_id, pa_name, description, 
+      value)
+    values (#{paId,jdbcType=INTEGER}, #{paName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{value,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pcs.pojo.Parameter">
+    insert into parameter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paId != null">
+        pa_id,
+      </if>
+      <if test="paName != null">
+        pa_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paId != null">
+        #{paId,jdbcType=INTEGER},
+      </if>
+      <if test="paName != null">
+        #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.Parameter">
+    update parameter
+    <set>
+      <if test="paName != null">
+        pa_name = #{paName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pcs.pojo.Parameter">
+    update parameter
+    set pa_name = #{paName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      value = #{value,jdbcType=DOUBLE}
+    where pa_id = #{paId,jdbcType=INTEGER}
+  </update>
+   <select id="findAll" resultType="com.pcs.pojo.Parameter">
+        SELECT * FROM parameter ORDER BY pa_id DESC
+   </select>
+</mapper>

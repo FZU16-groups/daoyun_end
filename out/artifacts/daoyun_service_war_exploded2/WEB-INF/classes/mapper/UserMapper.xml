@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.User">
+		<id column="u_id" jdbcType="INTEGER" property="uId" />
+		<result column="u_number" jdbcType="VARCHAR" property="uNumber" />
+		<result column="u_name" jdbcType="VARCHAR" property="uName" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="emaile" jdbcType="VARCHAR" property="emaile" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="status" jdbcType="INTEGER" property="status" />
+		<result column="pe_id" jdbcType="INTEGER" property="peId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		u_id, u_number, u_name, phone, emaile, create_date, status
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where u_id = #{uId,jdbcType=INTEGER}
+	</select>
+	<select id="selectByuNumber" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where u_number = #{uNumber,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where u_id = #{uId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.User">
+		insert into user (u_id,
+		u_number, u_name,
+		phone, emaile, create_date,
+		status)
+		values
+		(#{uId,jdbcType=INTEGER}, #{uNumber,jdbcType=VARCHAR},
+		#{uName,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{emaile,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+		#{status,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.User">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uId != null">
+				u_id,
+			</if>
+			<if test="uNumber != null">
+				u_number,
+			</if>
+			<if test="uName != null">
+				u_name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="emaile != null">
+				emaile,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uId != null">
+				#{uId,jdbcType=INTEGER},
+			</if>
+			<if test="uNumber != null">
+				#{uNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="uName != null">
+				#{uName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="emaile != null">
+				#{emaile,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.User">
+		update user
+		<set>
+			<if test="uNumber != null">
+				u_number = #{uNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="uName != null">
+				u_name = #{uName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="emaile != null">
+				emaile = #{emaile,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+		</set>
+		where u_id = #{uId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.User">
+		update user
+		set
+		u_number = #{uNumber,jdbcType=VARCHAR},
+		u_name =
+		#{uName,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		emaile =
+		#{emaile,jdbcType=VARCHAR},
+		create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=INTEGER}
+		where u_id = #{uId,jdbcType=INTEGER}
+	</update>
+	<select id="findAll" resultType="com.pcs.pojo.User">
+		SELECT u.*,p.pe_id FROM user u
+		left outer join person p on u.u_id = p.u_id WHERE status
+		> 0 ORDER BY
+		u.u_id DESC;
+	</select>
+</mapper>

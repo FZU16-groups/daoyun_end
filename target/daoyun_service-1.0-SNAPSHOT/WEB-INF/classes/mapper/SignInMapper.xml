@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcs.dao.SignInMapper">
+	<resultMap id="BaseResultMap" type="com.pcs.pojo.SignInDTO">
+		<id column="si_id" jdbcType="INTEGER" property="siId" />
+		<result column="ss_id" jdbcType="INTEGER" property="ssId" />
+		<result column="c_id" jdbcType="INTEGER" property="cId" />
+		<result column="c_number" jdbcType="VARCHAR" property="cNumber" />
+		<result column="c_name" jdbcType="VARCHAR" property="cName" />
+		<result column="pe_id" jdbcType="INTEGER" property="peId" />
+		<result column="pe_number" jdbcType="VARCHAR" property="peNumber" />
+		<result column="pe_name" jdbcType="VARCHAR" property="peName" />
+		<result column="si_type" jdbcType="INTEGER" property="type" />
+		<result column="si_date" jdbcType="TIMESTAMP" property="date" />
+		<result column="si_position_x" jdbcType="DOUBLE" property="position_x" />
+		<result column="si_position_y" jdbcType="DOUBLE" property="position_y" />
+		<result column="si_value" jdbcType="INTEGER" property="value" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		si_id, ss_id, c_id, c_number, c_name, pe_id, pe_number, pe_name, si_type, si_date, si_position_x, si_position_y, si_value
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where si_id = #{siId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sign_in
+		where si_id = #{siId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.pcs.pojo.SignInDTO">
+		insert into sign_in (si_id, ss_id, c_id, c_number, c_name,
+		                     pe_id, pe_number, pe_name,
+		                     si_type, si_date,si_position_x, si_position_y, si_value)
+		values (#{siId,jdbcType=INTEGER},
+				#{ssId,jdbcType=INTEGER},
+				#{cId,jdbcType=INTEGER},
+		        #{cNumber,jdbcType=VARCHAR},
+				#{cName,jdbcType=VARCHAR},
+				#{peId,jdbcType=INTEGER},
+				#{peNumber,jdbcType=VARCHAR},
+		        #{peName,jdbcType=VARCHAR},
+				#{type,jdbcType=INTEGER},
+				#{date,jdbcType=TIMESTAMP},
+		        #{position_x,jdbcType=DOUBLE},
+				#{position_y,jdbcType=DOUBLE},
+				#{value,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pcs.pojo.SignInDTO">
+		insert into sign_in
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="siId != null">
+				si_id,
+			</if>
+			<if test="ssId != null">
+				ss_id,
+			</if>
+			<if test="cId != null">
+				c_id,
+			</if>
+			<if test="cNumber != null">
+				c_number,
+			</if>
+			<if test="cName != null">
+				c_name,
+			</if>
+			<if test="peId != null">
+				pe_id,
+			</if>
+			<if test="peNumber != null">
+				pe_number,
+			</if>
+			<if test="peName != null">
+				pe_name,
+			</if>
+			<if test="type != null">
+				si_type,
+			</if>
+			<if test="date != null">
+				si_date,
+			</if>
+			<if test="position_x != null">
+				si_position_x,
+			</if>
+			<if test="position_y != null">
+				si_position_y,
+			</if>
+			<if test="value != null">
+				si_value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="siId != null">
+				#{siId,jdbcType=INTEGER},
+			</if>
+			<if test="ssId != null">
+				#{ssId,jdbcType=INTEGER},
+			</if>
+			<if test="cId != null">
+				#{cId,jdbcType=INTEGER},
+			</if>
+			<if test="cNumber != null">
+				#{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				#{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="peId != null">
+				#{peId,jdbcType=INTEGER},
+			</if>
+			<if test="peNumber != null">
+				#{peNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="peName != null">
+				#{peName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="position_x != null">
+				#{position_x,jdbcType=DOUBLE},
+			</if>
+			<if test="position_y != null">
+				#{position_y,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null">
+				#{value,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pcs.pojo.SignInDTO">
+		update sign_in
+		<set>
+			<if test="ssId != null">
+				ss_id = #{ssId,jdbcType=INTEGER},
+			</if>
+			<if test="cId != null">
+				c_id = #{cId,jdbcType=INTEGER},
+			</if>
+			<if test="cNumber != null">
+				c_number = #{cNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="cName != null">
+				c_name = #{cName,jdbcType=VARCHAR},
+			</if>
+			<if test="peId != null">
+				pe_id = #{peId,jdbcType=INTEGER},
+			</if>
+			<if test="peNumber != null">
+				pe_number = #{peNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="peName != null">
+				pe_name = #{peName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				si_type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				si_date = #{date,jdbcType=TIMESTAMP},
+			</if>
+			<if test="position_x != null">
+				si_position_x = #{position_x,jdbcType=DOUBLE},
+			</if>
+			<if test="position_y != null">
+				si_position_y = #{position_y,jdbcType=DOUBLE},
+			</if>
+			<if test="value != null">
+				si_value = #{value,jdbcType=INTEGER},
+			</if>
+		</set>
+		where si_id = #{siId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pcs.pojo.SignInDTO">
+		update sign_in
+		set ss_id = #{ssId,jdbcType=INTEGER},
+		    c_id = #{cId,jdbcType=INTEGER},
+			c_number = #{cNumber,jdbcType=VARCHAR},
+			c_name = #{cName,jdbcType=VARCHAR},
+			pe_id = #{peId,jdbcType=INTEGER},
+			pe_number = #{peNumber,jdbcType=VARCHAR},
+			pe_name = #{peName,jdbcType=VARCHAR},
+			si_type = #{type,jdbcType=INTEGER},
+			si_date = #{date,jdbcType=TIMESTAMP},
+			si_position_x = #{position_x,jdbcType=DOUBLE},
+			si_position_y = #{position_y,jdbcType=DOUBLE},
+			si_value = #{value,jdbcType=INTEGER}
+		where si_id = #{siId,jdbcType=INTEGER}
+	</update>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		SELECT * FROM sign_in ORDER BY
+		si_id DESC
+	</select>
+
+	<select id="selectByssId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where ss_id = #{ssId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectBycId" parameterType="com.pcs.pojo.SignInDTO" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where pe_id = #{peId,jdbcType=INTEGER} and c_id = #{cId,jdbcType=INTEGER}
+	</select>
+
+	<select id="JudgeSignedByssId" parameterType="com.pcs.pojo.SignInDTO" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where pe_id = #{peId,jdbcType=INTEGER} and ss_id = #{ssId,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteAllSignInByCId" parameterType="java.lang.Integer">
+		delete from sign_in
+		where c_id = #{cId,jdbcType=INTEGER}
+	</delete>
+
+</mapper>
