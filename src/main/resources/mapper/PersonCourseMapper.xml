@@ -139,9 +139,9 @@
 		person_course pc left outer join course c on pc.c_id = c.c_id
 		where pc.pe_id = #{peId,jdbcType=INTEGER} and pc.status=0
 	</select>
-	<select id="selectPersonBycId" parameterType="java.lang.Integer" resultType="com.pcs.pojo.PersonCourse">
+	<select id="selectPersonBycId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		SELECT
-		p.pe_number,p.pe_name,pc.value,pc.pc_id,p.pe_id,c.c_id,pc.attendance
+		p.pe_number,p.pe_name,pc.value,pc.pc_id,p.pe_id,c.c_id,pc.attendance,c.c_number
 		FROM
 		person_course pc left outer join
 		course c on pc.c_id = c.c_id left outer join person p on pc.pe_id =
@@ -166,4 +166,19 @@
 		from person_course
 		where c_id = #{cId,jdbcType=INTEGER}
 	</select>
+
+	<select id="selectBycIdAndpeId" resultMap="BaseResultMap">
+		select *
+		from person_course
+		where pe_id = #{peId,jdbcType=INTEGER} and c_id = #{cId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectStudentsBycId" resultMap="BaseResultMap">
+		select p.pe_number,p.pe_name,pc.value,pc.pc_id,p.pe_id,c.c_id,pc.attendance,c.c_number
+		from person_course pc left outer join
+			 course c on pc.c_id = c.c_id left outer join person p on pc.pe_id =
+																	  p.pe_id
+		where pc.c_id = #{cId,jdbcType=INTEGER} and pc.status=0
+	</select>
+
 </mapper>

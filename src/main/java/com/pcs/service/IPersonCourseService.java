@@ -32,4 +32,8 @@ public interface IPersonCourseService {
 	List<PersonCourse> selectBycId(Integer record);
 
 	PersonCourse findTeacher(PersonCourse record);
+
+	PersonCourse selectBycIdAndpeId(PersonCourse record);
+
+	List<PersonCourse> selectStudentsBycId(Integer record);
 }

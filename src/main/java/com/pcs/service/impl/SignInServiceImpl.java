@@ -72,4 +72,15 @@ public class SignInServiceImpl implements ISignInService {
 		return this.signInDao.selectBycId(record);
 	}
 
+	@Override
+	public SignInDTO JudgeSignedByssId(SignInDTO record) {
+		return this.signInDao.JudgeSignedByssId(record);
+	}
+
+	@Override
+	public int deleteAllSignInByCId(Integer cId) {
+		return this.signInDao.deleteAllSignInByCId(cId);
+	}
+
+
 }

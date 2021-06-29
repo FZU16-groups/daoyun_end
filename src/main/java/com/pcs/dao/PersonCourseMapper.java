@@ -33,4 +33,7 @@ public interface PersonCourseMapper {
 
 	PersonCourse findTeacher(PersonCourse record);
 
+	PersonCourse selectBycIdAndpeId(PersonCourse record);
+
+	List<PersonCourse> selectStudentsBycId(Integer record);
 }

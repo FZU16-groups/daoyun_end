@@ -210,4 +210,17 @@
 		from sign_in
 		where pe_id = #{peId,jdbcType=INTEGER} and c_id = #{cId,jdbcType=INTEGER}
 	</select>
+
+	<select id="JudgeSignedByssId" parameterType="com.pcs.pojo.SignInDTO" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sign_in
+		where pe_id = #{peId,jdbcType=INTEGER} and ss_id = #{ssId,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteAllSignInByCId" parameterType="java.lang.Integer">
+		delete from sign_in
+		where c_id = #{cId,jdbcType=INTEGER}
+	</delete>
+
 </mapper>

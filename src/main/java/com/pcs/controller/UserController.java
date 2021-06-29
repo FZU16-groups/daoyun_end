@@ -179,8 +179,9 @@ public class UserController {
 				person.setGrade("unknow");
 				person.setIsStudent(0);
 				person.setMajor("unknow");
-				person.setPeName("unknow");
+				person.setPeName(user.getuName());
 				person.setPeNumber("unknow");
+				//person.setIsStudent(1);
 				person.setsId(null);
 				person.setuId(user1.getuId());
 				Integer pe_res = this.personService.insertSelective(person);
@@ -332,8 +333,8 @@ public class UserController {
 			person.setGrade("unknow");
 			person.setIsStudent(0);
 			person.setMajor("unknow");
-			person.setPeName("unknow");
-			person.setPeNumber("unknow");
+			person.setPeName(user1.getuName());
+			person.setPeNumber(user1.getuNumber());
 			person.setsId(null);
 			person.setuId(user1.getuId());
 			Integer pe_res = this.personService.insertSelective(person);

@@ -70,5 +70,10 @@ public class SendSignInServiceImpl implements ISendSignInService {
         return this.sendSignInDao.JudgeSignInBycId(cId);
     }
 
+    @Override
+    public int deleteAllSendSignByCId(Integer cId) {
+        return this.sendSignInDao.deleteAllSendSignByCId(cId);
+    }
+
 
 }

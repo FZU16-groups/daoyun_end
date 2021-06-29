@@ -23,4 +23,8 @@ public interface ISignInService {
 
 	List<SignInDTO> selectBycId(SignInDTO record);
 
+	SignInDTO JudgeSignedByssId(SignInDTO record);
+
+	int deleteAllSignInByCId(Integer cId);
+
 }

@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import com.pcs.dto.PageDTO;
 import com.pcs.dto.PagePeIdDTO;
+import com.pcs.service.ISendSignInService;
+import com.pcs.service.ISignInService;
 import com.pcs.utils.ResponseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +26,10 @@ public class CourseController {
 	private ICourseService courseService;
 	@Resource
 	private IPersonCourseService personCourseService;
-
+	@Resource
+	private ISignInService signInService;
+	@Resource
+	private ISendSignInService sendSignInService;
 	/**
 	 * 获取单个课程信息
 	 * 
@@ -50,11 +55,13 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/deleteByCoursePrimaryKey.do", method = { RequestMethod.POST })
 	public @ResponseBody Integer deleteByPrimaryKey(@RequestBody CourseDTO course) {
+		int cId = course.getcId();
+		this.signInService.deleteAllSignInByCId(cId);
+		this.sendSignInService.deleteAllSendSignByCId(cId);
 		// 删除cId删除personCourse
 		this.personCourseService.deleteBycId(course.getcId());
 		return this.courseService.deleteByPrimaryKey(course.getcId());
 	}
-
 
 	/**
 	 * 修改单个课程信息
@@ -65,14 +72,9 @@ public class CourseController {
 	@RequestMapping(value = "/updateByCoursePrimaryKey.do", method = { RequestMethod.POST })
 	public @ResponseBody ResponseData updateByPrimaryKeySelective(@RequestBody CourseDTO course) {
 		ResponseData responseData = ResponseData.ok();
-		CourseDTO courseDTO = this.courseService.selectBycNumber(course.getcNumber());
-		if(course.getState() != null)
-			courseDTO.setState(course.getState());
-		if(course.getCan_join() != null)
-			courseDTO.setCan_join(course.getCan_join());
-		int res = this.courseService.updateByPrimaryKeySelective(courseDTO);
+		int res = this.courseService.updateByPrimaryKeySelective(course);
 		if(res == 1){
-			course = this.courseService.selectByPrimaryKey(courseDTO.getcId());
+            CourseDTO courseDTO = this.courseService.selectByPrimaryKey(course.getcId());
 			responseData.putDataValue("course",courseDTO);
 		}
 		else

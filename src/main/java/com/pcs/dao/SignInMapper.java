@@ -22,4 +22,8 @@ public interface SignInMapper {
     List<SignInDTO> selectByssId(Integer ssId);
 
     List<SignInDTO> selectBycId(SignInDTO record);
+
+    SignInDTO JudgeSignedByssId(SignInDTO record);
+
+    int deleteAllSignInByCId(Integer cId);
 }

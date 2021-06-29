@@ -29,4 +29,6 @@ public interface ISendSignInService {
 
     SendSignInDTO JudgeSignInBycId(Integer cId);
 
+    int deleteAllSendSignByCId(Integer cId);
+
 }

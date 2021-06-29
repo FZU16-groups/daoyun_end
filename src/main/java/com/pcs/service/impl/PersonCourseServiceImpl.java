@@ -96,6 +96,16 @@ public class PersonCourseServiceImpl implements IPersonCourseService {
 	}
 
 	@Override
+	public PersonCourse selectBycIdAndpeId(PersonCourse record) {
+		return this.personCourseDao.selectBycIdAndpeId(record);
+	}
+
+	@Override
+	public List<PersonCourse> selectStudentsBycId(Integer record) {
+		return this.personCourseDao.selectStudentsBycId(record);
+	}
+
+	@Override
 	public int deleteBycId(Integer cId) {
 		// TODO Auto-generated method stub
 		return this.personCourseDao.deleteBycId(cId);

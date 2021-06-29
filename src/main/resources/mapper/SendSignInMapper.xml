@@ -9,6 +9,7 @@
         <result column="pe_id" jdbcType="INTEGER" property="peId" />
         <result column="ss_type" jdbcType="INTEGER" property="type" />
         <result column="ss_date" jdbcType="TIMESTAMP" property="date" />
+        <result column="ss_endDate" jdbcType="TIMESTAMP" property="endDate" />
         <result column="ss_value" jdbcType="INTEGER" property="value" />
         <result column="ss_limitdis" jdbcType="DOUBLE" property="limitdis" />
         <result column="ss_time" jdbcType="INTEGER" property="limitime" />
@@ -17,7 +18,7 @@
         <result column="ss_state" jdbcType="INTEGER" property="state" />
     </resultMap>
     <sql id="Base_Column_List">
-        ss_id, c_id, c_number, c_name, pe_id, ss_type, ss_date, ss_value, ss_limitdis, ss_time, ss_position_x, ss_position_Y, ss_state
+        ss_id, c_id, c_number, c_name, pe_id, ss_type, ss_date, ss_endDate, ss_value, ss_limitdis, ss_time, ss_position_x, ss_position_Y, ss_state
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -32,7 +33,7 @@
     </delete>
     <insert id="insert" parameterType="com.pcs.pojo.SendSignInDTO">
         insert into send_signin (ss_id, c_id, c_number, c_name, pe_id,
-                                 ss_type, ss_date, ss_value, ss_limitdis,
+                                 ss_type, ss_date, ss_endDate, ss_value, ss_limitdis,
                                  ss_time, ss_position_x, ss_position_y, ss_state)
         values (#{ssId,jdbcType=INTEGER},
                 #{cId,jdbcType=INTEGER},
@@ -41,6 +42,7 @@
                 #{peId,jdbcType=INTEGER},
                 #{type,jdbcType=INTEGER},
                 #{date,jdbcType=TIMESTAMP},
+                #{endDate,jdbcType=TIMESTAMP},
                 #{value,jdbcType=INTEGER},
                 #{limitdis,jdbcType=DOUBLE},
                 #{limitime,jdbcType=INTEGER},
@@ -71,6 +73,9 @@
             </if>
             <if test="date != null">
                 ss_date,
+            </if>
+            <if test="endDate != null">
+                ss_endDate,
             </if>
             <if test="value != null">
                 ss_value,
@@ -113,6 +118,9 @@
             <if test="date != null">
                 #{date,jdbcType=TIMESTAMP},
             </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
             <if test="value != null">
                 #{value,jdbcType=INTEGER},
             </if>
@@ -154,6 +162,9 @@
             <if test="date != null">
                 ss_date = #{date,jdbcType=TIMESTAMP},
             </if>
+            <if test="endDate != null">
+                ss_endDate = #{endDate,jdbcType=TIMESTAMP},
+            </if>
             <if test="value != null">
                 ss_value = #{value,jdbcType=INTEGER},
             </if>
@@ -183,6 +194,7 @@
             pe_id = #{peId,jdbcType=INTEGER},
             ss_type = #{type,jdbcType=INTEGER},
             ss_date = #{date,jdbcType=TIMESTAMP},
+            ss_endDate = #{endDate,jdbcType=TIMESTAMP},
             ss_value = #{value,jdbcType=INTEGER},
             ss_limitdis = #{limitdis,jdbcType=DOUBLE},
             ss_time = #{limitime,jdbcType=INTEGER},
@@ -224,5 +236,10 @@
         from send_signin
         where c_id = #{cId,jdbcType=INTEGER} and ss_state = 1
     </select>
+
+    <delete id="deleteAllSendSignByCId" parameterType="java.lang.Integer">
+        delete from send_signin
+        where c_id = #{cId,jdbcType=INTEGER}
+    </delete>
 
 </mapper>

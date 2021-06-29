@@ -4,17 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.pcs.pojo.CourseDTO;
-import com.pcs.pojo.PersonDTO;
-import com.pcs.pojo.UserDTO;
-import com.pcs.service.ICourseService;
-import com.pcs.service.IPersonService;
+import com.pcs.pojo.*;
+import com.pcs.service.*;
 import com.pcs.utils.ResponseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import com.pcs.pojo.PersonCourse;
-import com.pcs.service.IPersonCourseService;
 
 @Controller
 public class PersonCourseController {
@@ -24,6 +18,10 @@ public class PersonCourseController {
 	private IPersonService personService;
 	@Resource
 	private ICourseService courseService;
+	@Resource
+	private ISignInService signInService;
+	@Resource
+	private ISendSignInService sendSignInService;
 	/**
 	 * 获取单个师生课程信息
 	 * 
@@ -78,8 +76,12 @@ public class PersonCourseController {
 					responseData = new ResponseData(1005, "已加入该班课");
 				} else {
 					personCourse.setStatus(0); //加入班课，此时为学生
+					personCourse.setValue(0);
 					int res = this.personCourseService.insertSelective(personCourse);
 					if (res == 1) { //加入班课成功
+						PersonDTO personDTO = this.personService.selectByPrimaryKey(personCourse.getPeId());
+						personDTO.setIsStudent(1);
+						this.personService.updateByPrimaryKeySelective(personDTO);
 						personCourse1 = this.personCourseService.judgeJoinCourse(personCourse);
 						List<PersonCourse> personCourseList = this.personCourseService.selectBycId(personCourse1.getcId());
 						int size = personCourseList.size();
@@ -162,10 +164,61 @@ public class PersonCourseController {
 	 * 根据班课编号显示所有成员
 	 *
 	 */
-	@RequestMapping("/selectPersonByPersonCourseId.do")
+	@RequestMapping("/selectPersonByPersonCourseNumber.do")
 	public @ResponseBody ResponseData selectPersonBycId(@RequestBody PersonCourse personCourse) {
 		ResponseData  responseData = ResponseData.ok();
-		List<PersonCourse> personCourseList = this.personCourseService.selectPersonBycId(personCourse.getcId());
+		CourseDTO courseDTO = this.courseService.selectBycNumber(personCourse.getcNumber());
+
+		//更新出勤率
+		//老师发起签到的次数
+		PersonCourse personCourse1 = new PersonCourse(courseDTO.getcId());
+		PersonCourse personCourse2 = this.personCourseService.findTeacher(personCourse1);
+		SendSignInDTO sendSignInDTO = new SendSignInDTO(courseDTO.getcId(),personCourse2.getPeId());
+		int sendTimes = this.sendSignInService.selectBycId(sendSignInDTO).size();
+
+		List<PersonCourse> personCourseList = this.personCourseService.selectPersonBycId(courseDTO.getcId());
+		for(int i=0;i<personCourseList.size();i++){
+			PersonCourse personCourse3 = personCourseList.get(i);
+			SignInDTO signInDTO = new SignInDTO(personCourse3.getcId(),personCourse3.getPeId());
+			int signTimes = this.signInService.selectBycId(signInDTO).size();
+			double attence = (double) signTimes/sendTimes;
+			attence = attence *100;
+			personCourse3.setAttendance((int)attence);
+			this.personCourseService.updateByPrimaryKeySelective(personCourse3);
+		}
+		if(personCourseList.size() > 0)
+			responseData.putDataValue("personCourseList",personCourseList);
+		else
+			responseData = new ResponseData(1200,"该班课下没有用户加入");
+		return responseData;
+	}
+
+	/**
+	 * 移动端根据班课编号显示所有学生
+	 *
+	 */
+	@RequestMapping("/selectStudentsByCourseNumber.do")
+	public @ResponseBody ResponseData selectStudentsBycNumber(@RequestBody PersonCourse personCourse) {
+		ResponseData  responseData = ResponseData.ok();
+		CourseDTO courseDTO = this.courseService.selectBycNumber(personCourse.getcNumber());
+
+		//更新出勤率
+		//老师发起签到的次数
+		PersonCourse personCourse1 = new PersonCourse(courseDTO.getcId());
+		PersonCourse personCourse2 = this.personCourseService.findTeacher(personCourse1);
+		SendSignInDTO sendSignInDTO = new SendSignInDTO(courseDTO.getcId(),personCourse2.getPeId());
+		int sendTimes = this.sendSignInService.selectBycId(sendSignInDTO).size();
+
+		List<PersonCourse> personCourseList = this.personCourseService.selectStudentsBycId(courseDTO.getcId());
+		for(int i=0;i<personCourseList.size();i++){
+			PersonCourse personCourse3 = personCourseList.get(i);
+			SignInDTO signInDTO = new SignInDTO(personCourse3.getcId(),personCourse3.getPeId());
+			int signTimes = this.signInService.selectBycId(signInDTO).size();
+			double attence = (double) signTimes/sendTimes;
+			attence = attence *100;
+			personCourse3.setAttendance((int)attence);
+			this.personCourseService.updateByPrimaryKeySelective(personCourse3);
+		}
 		if(personCourseList.size() > 0)
 			responseData.putDataValue("personCourseList",personCourseList);
 		else

@@ -55,6 +55,11 @@ public class SignInDTO implements Serializable {
 		this.value = value;
 	}
 
+	public SignInDTO(Integer cId, Integer peId) {
+		this.cId = cId;
+		this.peId = peId;
+	}
+
 	public Integer getSiId() {
 		return siId;
 	}

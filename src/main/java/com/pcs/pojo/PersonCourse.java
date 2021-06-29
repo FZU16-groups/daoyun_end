@@ -47,6 +47,15 @@ public class PersonCourse implements Serializable {
 		this.attendance = attendance;
 	}
 
+	public PersonCourse(Integer peId, Integer cId) {
+		this.peId = peId;
+		this.cId = cId;
+	}
+
+	public PersonCourse(Integer cId) {
+		this.cId = cId;
+	}
+
 	public void setAttendance(Integer attendance) {
 		this.attendance = attendance;
 	}

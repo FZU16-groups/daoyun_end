@@ -25,4 +25,6 @@ public interface SendSignInMapper {
     List<SendSignInDTO> selectBycId(SendSignInDTO record);
 
     SendSignInDTO JudgeSignInBycId(Integer cId);
+
+    int deleteAllSendSignByCId(Integer cId);
 }
